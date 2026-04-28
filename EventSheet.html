@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Sheet</title>
+        <link rel="stylesheet" href="EventSheet.css">
+    </head>
+    <body>
+        <div id="form-screen">
+            <h1>Event Sheet</h1>
+            <label>Creator</label>
+            <input type="text" id="event-creator" placeholder="Who is the creator?">
+            <label>Written by:</label>
+            <input type="text" id="letter-writer" placeholder="Letter writer">
+            <label>Location</label>
+            <input type="text" id="event-location" placeholder="Where is the event?">
+            <label>Event Title</label>
+            <input type="text" id="event-title" placeholder="What's the title?">
+            <label>Event Description</label>
+            <textarea id="event-description" placeholder="Describe the event"></textarea>
+            <h2>Combat</h2>
+            <div id="combat-blocks"></div>
+            <button id="add-fight-btn">Add fight</button>
+            <button id="preview-btn">Preview</button>
+        </div>
+        <div id="preview-screen" hidden>
+            <div id="briefing-content"></div>
+                <button id="back-btn">Back</button>
+        </div>
+        <script src="EventSheet.js"></script>
+    </body>
+</html>
