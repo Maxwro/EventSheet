@@ -55,7 +55,9 @@ body {
 }
 
 #form-screen input[type="text"],
-#form-screen textarea {
+#form-screen input[type="number"],
+#form-screen textarea,
+#form-screen select {
     background: #0e0f16;
     border: 1px solid #3a3d4e;
     color: #d0d4e8;
@@ -68,12 +70,15 @@ body {
 }
 
 #form-screen input[type="text"]:focus,
-#form-screen textarea:focus {
+#form-screen input[type="number"]:focus,
+#form-screen textarea:focus,
+#form-screen select:focus {
     border-color: #8a8fa8;
     box-shadow: 0 0 6px rgba(138, 143, 168, 0.2);
 }
 
 #form-screen input[type="text"]::placeholder,
+#form-screen input[type="number"]::placeholder,
 #form-screen textarea::placeholder {
     color: #4a4d5e;
 }
@@ -101,6 +106,8 @@ body {
     border-color: #8a8fa8;
 }
 
+#march-blocks > div,
+#npc-blocks > div,
 #combat-blocks > div {
     background: rgba(10, 10, 20, 0.5);
     border: 1px solid #3a3d4e;
@@ -108,6 +115,62 @@ body {
     margin-top: 12px;
     display: flex;
     flex-direction: column;
+}
+
+.fight-estimate-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.fight-estimate-row label {
+    margin: 0;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #c06060;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: #d0d4e8;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: #60b080;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(22px);
 }
 
 #preview-screen[hidden] {
@@ -126,14 +189,16 @@ body {
     position: relative;
     max-width: 700px;
     width: 100%;
+    padding: 20px;
+    overflow: visible;
 }
 
 #briefing-parchment {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
     background:
         radial-gradient(ellipse at 20% 10%, rgba(90, 55, 25, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 85%, rgba(90, 55, 25, 0.2) 0%, transparent 50%),
