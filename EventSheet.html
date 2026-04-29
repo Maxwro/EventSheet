@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="EventSheet.css">
     </head>
     <body>
-        <div id="form-screen">
+<div id="form-screen">
             <h1>Event Sheet</h1>
             <label>Creator</label>
             <input type="text" id="event-creator" placeholder="Who is the creator?">
@@ -25,9 +25,21 @@
             <button id="preview-btn">Preview</button>
         </div>
         <div id="preview-screen" hidden>
-            <div id="briefing-content"></div>
+            <div id="briefing-wrapper">
+                <svg style="position: absolute; width: 0; height: 0;">
+                    <filter id="wavy2">
+                        <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1" />
+                        <feDisplacementMap in="SourceGraphic" scale="20" />
+                    </filter>
+                </svg>
+                <div id="briefing-parchment"></div>
+                <div id="briefing-content"></div>
+                <img id="briefing-stamp" src="alliance-stamp.png" alt="">
+            </div>
                 <button id="back-btn">Back</button>
+                <button id="download-btn">Download</button>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3/dist/dom-to-image-more.min.js"></script>
         <script src="EventSheet.js"></script>
     </body>
 </html>
