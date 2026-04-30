@@ -1,5 +1,12 @@
-@import url(https://fonts.cdnfonts.com/css/morpheus);
-@import url(https://fonts.googleapis.com/css2?family=Caveat&display=swap);
+@font-face {
+    font-family: 'Morpheus';
+    src: url('morpheus.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Shadows Into Light';
+    src: url('shadows-into-light.ttf') format('truetype');
+}
 
 body {
     margin: 0;
@@ -329,7 +336,7 @@ outline-offset: -8px;
 filter: url(#wavy2);
 }
 #cheatsheet-content {
-font-family: 'Caveat';
+font-family: 'Shadows Into Light';
 position: relative;
 color: #2a1a0a;
 padding: 50px 60px 120px 60px;

@@ -338,7 +338,9 @@ downloadBtn.addEventListener('click', function() {
         target = briefingWrapper
         filename = eventTitle.value + '.jpg'
     }
-    domtoimage.toJpeg(target).then(function(dataUrl) {
+    document.fonts.ready.then(function() {
+        return domtoimage.toJpeg(target)
+    }).then(function(dataUrl) {
         var link = document.createElement('a')
         link.href = dataUrl
         link.download = filename
