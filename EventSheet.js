@@ -14,6 +14,10 @@ const downloadBtn = document.getElementById('download-btn')
 const eventStartTime = document.getElementById('event-start-time')
 const marchBlocks = document.getElementById('march-blocks')
 const addMarchBtn = document.getElementById('add-march-btn')
+const viewToggle = document.getElementById('view-toggle')
+const cheatsheetContent = document.getElementById('cheatsheet-content')
+const briefingWrapper = document.getElementById('briefing-wrapper')
+const cheatsheetWrapper = document.getElementById('cheatsheet-wrapper')
 
 addMarchBtn.addEventListener('click', function() {
     var marchBlock = document.createElement('div')
@@ -201,6 +205,9 @@ previewBtn.addEventListener('click', function() {
     var description = eventDescription.value
     var startTime = eventStartTime.value.trim()
     var totalMinutes = 0
+    var marchMinutes = 0
+    var npcMinutes = 0
+    var fightMinutes = 0
 
     var fights = combatBlocks.children
     var fightHTML = ''
@@ -212,28 +219,50 @@ previewBtn.addEventListener('click', function() {
         var fightEnemyDesc = fight.querySelector('.fight-enemy-desc').value
         var fightResult = fight.querySelector('.fight-result').value
         var fightTime = Number(fight.querySelector('.fight-time').value) || 0
-        totalMinutes += fightTime
+        fightMinutes += fightTime
         fightHTML = fightHTML + '<h3>Fight ' + (i + 1) + '</h3>' +
         '<p>Location: ' + fightLocation + '</p>' +
         '<p>Enemies: ' + fightEnemies + '</p>' +
         '<p>Count: ' + fightEnemyCount + '</p>' +
         '<p>Description: ' + fightEnemyDesc + '</p>' +
-        '<p>Result: ' + fightResult + '</p>'
+        '<p>Result: ' + fightResult + '</p>' +
+        '<p>Estimated fight time: ' + formatDuration(fightTime) + '</p>'
     }
 
     var marches = marchBlocks.children
+    var marchHTML = ''
     for (var i = 0; i < marches.length; i++) {
         var march = marches[i]
+        var marchFrom = march.querySelector('.march-from').value
+        var marchTo = march.querySelector('.march-to').value
+        var marchDesc = march.querySelector('.march-desc').value
+        var marchMode = march.querySelector('.march-mode').value
         var marchTime = Number(march.querySelector('.march-time').value) || 0
-        totalMinutes += marchTime
+        marchMinutes += marchTime
+        marchHTML = marchHTML + '<h3>March ' + (i + 1) + '</h3>' +
+        '<p>From: ' + marchFrom + '</p>' +
+        '<p>To: ' + marchTo + '</p>' +
+        '<p>Description: ' + marchDesc + '</p>' +
+        '<p>Travel mode: ' + marchMode + '</p>' +
+        '<p>Estimated march time: ' + formatDuration(marchTime) + '</p>'
     }
 
     var npcs = npcBlocks.children
+    var npcHTML = ''
     for (var i = 0; i < npcs.length; i++) {
         var npc = npcs[i]
+        var npcName = npc.querySelector('.npc-name').value
+        var npcDesc = npc.querySelector('.npc-desc').value
+        var npcDialogue = npc.querySelector('.npc-dialogue').value
         var npcTime = Number(npc.querySelector('.npc-time').value) || 0
-        totalMinutes += npcTime
+        npcMinutes += npcTime
+        npcHTML = npcHTML + '<h3>NPC: ' + npcName + '</h3>' +
+        '<p>Description: ' + npcDesc + '</p>' +
+        '<p>Dialogue:</p><pre>' + npcDialogue + '</pre>' +
+        '<p>Estimated NPC time: ' + formatDuration(npcTime) + '</p>'
     }
+
+    totalMinutes = marchMinutes + npcMinutes + fightMinutes
 
     var writerHTML = ''
     if (writer !== '') {
@@ -260,10 +289,38 @@ previewBtn.addEventListener('click', function() {
     briefingContent.innerHTML = '<h1>' + title + '</h1>' +
     '<p>Location: ' + location + '</p>' +
     '<p>' + description + '</p>' +
-    fightHTML +
     '<p>Created by: ' + creator + '</p>' +
     writerHTML +
     timeHTML
+
+    var cheatsheetTimeHTML = '<h3>Time Breakdown</h3>'
+    if (marchMinutes > 0) {
+        cheatsheetTimeHTML += '<p>Total march time: ' + formatDuration(marchMinutes) + '</p>'
+    }
+    if (npcMinutes > 0) {
+        cheatsheetTimeHTML += '<p>Total NPC time: ' + formatDuration(npcMinutes) + '</p>'
+    }
+    if (fightMinutes > 0) {
+        cheatsheetTimeHTML += '<p>Total fight time: ' + formatDuration(fightMinutes) + '</p>'
+    }
+    if (totalMinutes > 0) {
+        cheatsheetTimeHTML += '<p>Total event duration: ' + formatDuration(totalMinutes) + '</p>'
+    }
+    if (startTime !== '' && totalMinutes > 0) {
+        var endTime = addMinutesToTime(startTime, totalMinutes)
+        if (endTime !== '') {
+            cheatsheetTimeHTML += '<p>Start: ' + startTime + ' — Estimated end: ' + endTime + '</p>'
+        }
+    }
+
+    cheatsheetContent.innerHTML = '<h1>' + title + ' — Cheatsheet</h1>' +
+    marchHTML +
+    npcHTML +
+    fightHTML +
+    '<p>Created by: ' + creator + '</p>' +
+    writerHTML +
+    cheatsheetTimeHTML
+
     formScreen.hidden = true
     previewScreen.hidden = false
 })
@@ -272,11 +329,28 @@ backBtn.addEventListener('click', function(){
     formScreen.hidden = false
 })
 downloadBtn.addEventListener('click', function() {
-    var wrapper = document.getElementById('briefing-wrapper')
-    domtoimage.toJpeg(wrapper).then(function(dataUrl) {
+    var target
+    var filename
+    if (viewToggle.checked) {
+        target = cheatsheetWrapper
+        filename = eventTitle.value + '_cheatsheet.jpg'
+    } else {
+        target = briefingWrapper
+        filename = eventTitle.value + '.jpg'
+    }
+    domtoimage.toJpeg(target).then(function(dataUrl) {
         var link = document.createElement('a')
         link.href = dataUrl
-        link.download = eventTitle.value + '.jpg'
+        link.download = filename
         link.click()
     })
+})
+viewToggle.addEventListener('change', function() {
+    if (viewToggle.checked) {
+        briefingWrapper.hidden = true
+        cheatsheetWrapper.hidden = false
+    } else {
+        briefingWrapper.hidden = false
+        cheatsheetWrapper.hidden = true
+    }
 })

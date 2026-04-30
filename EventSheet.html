@@ -33,6 +33,14 @@
             <button id="preview-btn">Preview</button>
         </div>
         <div id="preview-screen" hidden>
+            <div id="preview-toggle-row">
+                <label>Briefing Letter</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="view-toggle">
+                <span class="toggle-slider"></span>
+                </label>
+                <label>Cheatsheet</label>
+            </div>
             <div id="briefing-wrapper">
                 <svg style="position: absolute; width: 0; height: 0;">
                     <filter id="wavy2">
@@ -44,8 +52,13 @@
                 <div id="briefing-content"></div>
                 <img id="briefing-stamp" src="alliance-stamp.png" alt="">
             </div>
-                <button id="back-btn">Back</button>
-                <button id="download-btn">Download</button>
+            <div id="cheatsheet-wrapper" hidden>
+                <div id="cheatsheet-parchment"></div>
+                <div id="cheatsheet-content"></div>
+                <img id="cheatsheet-stamp" src="260px-Alliance_Crest.png">
+                </div>
+            <button id="back-btn">Back</button>
+            <button id="download-btn">Download</button>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3/dist/dom-to-image-more.min.js"></script>
         <script src="EventSheet.js"></script>
