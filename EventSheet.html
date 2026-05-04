@@ -9,18 +9,20 @@
     <body>
 <div id="form-screen">
             <h1>Event Sheet</h1>
+            <label>Event Title</label>
+            <input type="text" id="event-title" placeholder="What's the title?">
+            <label>Location</label>
+            <input type="text" id="event-location" placeholder="Where is the event?">
+            <label>Expected Attendees</label>
+            <input type="number" id="event-attendees" placeholder="How many players?">
+            <label>Event Description</label>
+            <textarea id="event-description" placeholder="Describe the event"></textarea>
+            <label>Event Start Time (optional)</label>
+            <input type="text" id="event-start-time" placeholder="e.g. 9:00 PM">
             <label>Creator</label>
             <input type="text" id="event-creator" placeholder="Who is the creator?">
             <label>Written by:</label>
             <input type="text" id="letter-writer" placeholder="Letter writer">
-            <label>Location</label>
-            <input type="text" id="event-location" placeholder="Where is the event?">
-            <label>Event Title</label>
-            <input type="text" id="event-title" placeholder="What's the title?">
-            <label>Event Start Time (optional)</label>
-            <input type="text" id="event-start-time" placeholder="e.g. 9:00 PM">
-            <label>Event Description</label>
-            <textarea id="event-description" placeholder="Describe the event"></textarea>
             <h2>Marches</h2>
             <div id="march-blocks"></div>
             <button id="add-march-btn">Add march</button>

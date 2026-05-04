@@ -18,6 +18,7 @@ const viewToggle = document.getElementById('view-toggle')
 const cheatsheetContent = document.getElementById('cheatsheet-content')
 const briefingWrapper = document.getElementById('briefing-wrapper')
 const cheatsheetWrapper = document.getElementById('cheatsheet-wrapper')
+const eventAttendees = document.getElementById('event-attendees')
 
 addMarchBtn.addEventListener('click', function() {
     var marchBlock = document.createElement('div')
@@ -125,14 +126,12 @@ addFightBtn.addEventListener('click', function() {
         '<label>Enemy type</label><input type="text" class="fight-enemies" placeholder="Who are you fighting?">' +
         '<label>Enemy count</label><input type="number" class="fight-enemy-count" placeholder="How many enemies?">' +
         '<label>Enemy HP (each)</label><input type="number" class="fight-enemy-hp" placeholder="HP per enemy">' +
-        '<label>Expected attendees</label><input type="number" class="fight-attendees" placeholder="How many players?">' +
         '<div class="fight-estimate-row"><label>Worst case</label><label class="toggle-switch"><input type="checkbox" class="fight-case-toggle"><span class="toggle-slider"></span></label><label>Best case</label></div>' +
         '<label>Estimated fight time (minutes)</label><input type="number" class="fight-time" placeholder="Auto-calculates or type manually">' +
         '<label>Enemy Description</label><textarea class="fight-enemy-desc" placeholder="Describe the enemies"></textarea>' +
         '<label>Fight Result</label><textarea class="fight-result" placeholder="What should the outcome be?"></textarea>'
     var enemyCount = fightBlock.querySelector('.fight-enemy-count')
     var enemyHp = fightBlock.querySelector('.fight-enemy-hp')
-    var attendees = fightBlock.querySelector('.fight-attendees')
     var fightTime = fightBlock.querySelector('.fight-time')
     var caseToggle = fightBlock.querySelector('.fight-case-toggle')
     var manualTime = false
@@ -145,7 +144,7 @@ addFightBtn.addEventListener('click', function() {
         if (manualTime) return
         var count = Number(enemyCount.value)
         var hp = Number(enemyHp.value)
-        var players = Number(attendees.value)
+        var players = Number(eventAttendees.value)
         if (count > 0 && hp > 0 && players > 0) {
             var totalHp = count * hp
             var bestCase = caseToggle.checked
@@ -159,7 +158,7 @@ addFightBtn.addEventListener('click', function() {
 
     enemyCount.addEventListener('input', calcFightTime)
     enemyHp.addEventListener('input', calcFightTime)
-    attendees.addEventListener('input', calcFightTime)
+    eventAttendees.addEventListener('input', calcFightTime)
     caseToggle.addEventListener('change', calcFightTime)
 
     const removeBtn = document.createElement('button')
